@@ -20,6 +20,11 @@ class App extends Component {
   }
 
   render() {
+
+    console.log(this);
+
+    //install react extension in browser
+    
     return (
       <div className="App">
 
