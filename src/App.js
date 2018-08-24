@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import { Grid, Row, FormGroup } from 'react-bootstrap';
 import list from './list';
 
-//filter the results by search
-//Higher order function is a function that returns another function
+// default parameters to fetch data from the API
 
+const DEFAULT_QUERY = 'react';
+const PATH_BASE = 'http://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+
+
+// const url = PATH_BASE + PATH_SEARCH + '?' + PARAM_SEARCH + DEFAULT_QUERY;
+const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+
+console.log(url);
+
+//filter the results by search
 function isSearched(searchTerm){
   return function(item){
     return !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
