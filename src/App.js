@@ -16,7 +16,14 @@ class App extends Component {
     this.state = {
       list: list
     }
+    // Bind the function to this (app component)
+    this.removeItem = this.removeItem.bind(this);
+  }
 
+  // Remove function
+
+  removeItem(id){
+    console.log('Remove item');
   }
 
   render() {
@@ -24,7 +31,7 @@ class App extends Component {
     console.log(this);
 
     //install react extension in browser
-    
+
     return (
       <div className="App">
 
@@ -33,6 +40,8 @@ class App extends Component {
             <div key={ item.objectID }>
                 <h1> <a href={ item.url }> {item.title} </a> by {item.author} </h1>
                 <h4>{ item.num_comments } Comments | { item.points } Points</h4>
+                { /* Comments in JSX -- TO USE THIS KEYWORD, USE ARROW FUNCTION ONLY */ }
+                <button type='button' onClick={ () => this.removeItem(item.objectID) }>Remove</button>
             </div>
           )
         }   

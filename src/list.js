@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const list = [
     {
-        title: 'Tell me the truth witout words',
+        title: 'Lorem ipsum dolor sit amet',
         url: 'http://google.com',
         author: 'Diego',
         num_comments: 100,
@@ -10,7 +10,7 @@ const list = [
         objectID: 1
     },
     {
-        title: 'Lorem Ipsum',
+        title: 'In vino veritas',
         url: 'http://google.com',
         author: 'Jesus',
         num_comments: 50,
