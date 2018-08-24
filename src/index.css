@@ -3,3 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+.jumbotron{
+  background: lightseagreen;
+  border-radius: 0px!important;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row } from 'react-bootstrap';
+import { Grid, Row, FormGroup } from 'react-bootstrap';
 import './App.css';
 import list from './list';
 
@@ -58,7 +58,7 @@ searchValue(event){
     return (
       <div className="App">
 
-        <Grid>
+        <Grid fluid>
           <Row>
             <div className="jumbotron">
               <Search
@@ -85,12 +85,24 @@ searchValue(event){
 const Search = ({ onChange, value, children  }) => {
   return (
     <form>
-      {children}
-      <input
-        type="text"
-        onChange={onChange}
-        value={value}
-      />
+      <FormGroup>
+        { children }
+        <div className="input-group">
+         <input
+          className="form-control width100"
+          type="text"
+          onChange={onChange}
+          value={value}
+        />
+        <span className="input-group-btn">
+          <button
+          className="btn btn-primary"
+          type="submit"
+          >Search
+          </button>
+        </span>
+        </div>
+      </FormGroup>
     </form>
 
   );
