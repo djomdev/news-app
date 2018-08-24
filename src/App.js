@@ -5,14 +5,13 @@ import list from './list';
 // default parameters to fetch data from the API
 
 const DEFAULT_QUERY = 'react';
-const PATH_BASE = 'http://hn.algolia.com/api/v1';
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 
 
-// const url = PATH_BASE + PATH_SEARCH + '?' + PARAM_SEARCH + DEFAULT_QUERY;
-const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
-
+// const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+const url = 'https://hn.algolia.com/api/v1/search?query=react';
 console.log(url);
 
 //filter the results by search
@@ -33,20 +32,39 @@ class App extends Component {
 
     //setting state
     this.state = {
-      list,
-      searchTerm: '' 
+      //In JavaScript, null refers to empty object that has not been defined yet
+      result: null,
+      searchTerm: DEFAULT_QUERY 
     }
     // Bind the function to this (app component)
     this.removeItem = this.removeItem.bind(this);
     this.searchValue = this.searchValue.bind(this);
+    this.fetchTopStories = this.fetchTopStories.bind(this);
+    this.setTopStories = this.setTopStories.bind(this);
   }
 
-  // Remove function
+  // set topstories
+  setTopStories(result){
+    this.setState({ result: result });
+  }
 
+  // Fetch top stories
+  fetchTopStories(searchTerm){
+    //fetch() is a JS method to make http request. Before was XMLHttpRequest()
+    fetch('https://hn.algolia.com/api/v1/search?query=react')
+    .then(response => response.json())
+    .then(result => this.setTopStories(result))
+    .catch(e => e); 
+  }
+
+  // component did mount
+
+  componentDidMount() {
+    this.fetchTopStories(this.state.searchTerm);
+  }
 
 
   //Let's rewrite removeItem fucntion in ES6
-
   removeItem(id){
     // const isNotId = item => item.objectID !== id;
     const updatedList = this.state.list.filter(item => item.objectID !== id);
@@ -62,7 +80,9 @@ searchValue(event){
 
   render() {
 
-    const { list, searchTerm } = this.state;
+    const { result, searchTerm } = this.state;
+
+    if(!result) { return null; }
 
     console.log(this);
     return (
@@ -80,7 +100,7 @@ searchValue(event){
         </Grid>
 
         <Table 
-        list={ list }
+        list={ result.hits }
         searchTerm={ searchTerm }
         removeItem={ this.removeItem }
 
