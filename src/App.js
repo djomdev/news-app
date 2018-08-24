@@ -58,9 +58,10 @@ searchValue(event){
     return (
       <div className="App">
 
-      <form>
-        <input type="text" onChange={ this.searchValue } value={ searchTerm } />
-      </form>
+        <Search 
+          onChange={this.searchValue}
+          value={searchTerm} 
+        />
 
         {
           list.filter( isSearched(searchTerm) ).map( item =>
@@ -74,6 +75,22 @@ searchValue(event){
         }   
       
       </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render() {
+    const { onChange, value } = this.props;
+    return (
+        <form>
+          <input 
+          type="text" 
+          onChange={ onChange } 
+          value={ value } 
+          />
+        </form>
+
     );
   }
 }
