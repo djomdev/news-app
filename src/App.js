@@ -3,20 +3,21 @@ import logo from './logo.svg';
 import './App.css';
 import list from './list';
 
-//let's create some sample list of data
+// class Developer {
+//   constructor(fname, lname) {
+//     this.fname = fname;
+//     this.lname = lname;
+//   }
 
-// function(item){
-//   return item.name
+//   getName() {
+//     return this.fname + ' ' + this.lname;
+//   }
 // }
 
-// // es6 arrow function
+// const diego = new Developer('Diego', 'Ortega');
+// console.log(diego.getName());
 
-// item => {
-//   item.name
-// }
-
-// item => item
-
+// output: Diego Ortega
 
 
 class App extends Component {
