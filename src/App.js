@@ -18,30 +18,12 @@ class App extends Component {
     }
     // Bind the function to this (app component)
     this.removeItem = this.removeItem.bind(this);
+    this.searchValue = this.searchValue.bind(this);
   }
 
   // Remove function
 
-  /* removeItem(id){
-    console.log('Remove item');
-    //using javascript filter method
-    // we can filter out the click item and render the updated list
-    function isNotId(item){
-      return item.objectID !== id;
-    }
-    //create a new updated list
 
-    const updatedList = this.state.list.filter(isNotId);
-    //assign the new updated list to the list using setState method
-    this.setState({ list: updatedList });
-
-    // THE STEPS WE TOOK TO UPDATE THE STATE:
-    // I- We triggered a click event using the button in our view.
-    // II- A removeItem function modifies the internal state using setState method.
-    // III- Component state and the render method runs and update the view.
-
-  } 
-  */
 
   //Let's rewrite removeItem fucntion in ES6
 
@@ -51,14 +33,22 @@ class App extends Component {
     this.setState({ list: updatedList });
   }
 
+
+  // get input field value from search form
+searchValue(event){
+  // console.log(event);
+  this.setState({ searchTerm: event.target.value });
+}
+
   render() {
-
     console.log(this);
-
-    //install react extension in browser
-
     return (
       <div className="App">
+
+      <form>
+        <input type="text" onChange={ this.searchValue }/>
+
+      </form>
 
         {
           this.state.list.map( item =>
