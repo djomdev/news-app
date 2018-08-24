@@ -22,7 +22,7 @@ class App extends Component {
 
   // Remove function
 
-  removeItem(id){
+  /* removeItem(id){
     console.log('Remove item');
     //using javascript filter method
     // we can filter out the click item and render the updated list
@@ -40,7 +40,15 @@ class App extends Component {
     // II- A removeItem function modifies the internal state using setState method.
     // III- Component state and the render method runs and update the view.
 
+  } 
+  */
 
+  //Let's rewrite removeItem fucntion in ES6
+
+  removeItem(id){
+    // const isNotId = item => item.objectID !== id;
+    const updatedList = this.state.list.filter(item => item.objectID !== id);
+    this.setState({ list: updatedList });
   }
 
   render() {
