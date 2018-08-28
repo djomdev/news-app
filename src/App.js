@@ -66,9 +66,11 @@ class App extends Component {
 
   //Let's rewrite removeItem fucntion in ES6
   removeItem(id){
+    const { result } = this.state; //Spread Operator
     // const isNotId = item => item.objectID !== id;
-    const updatedList = this.state.list.filter(item => item.objectID !== id);
-    this.setState({ list: updatedList });
+    const updatedList = result.hits.filter(item => item.objectID !== id);
+    // this.setState({ result: Object.assign({}, this.state.result, {hits:updatedList}) }); //Object assign
+    this.setState({ result: { ...result, hits: updatedList } }); //Spread Operator
   }
 
 
