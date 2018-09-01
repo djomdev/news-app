@@ -5,9 +5,9 @@ import list from './list';
 // default parameters to fetch data from the API
 
 const DEFAULT_QUERY = 'react';
-const PATH_BASE = 'https://hn.algolia.com/api/v1';
-const PATH_SEARCH = '/search';
-const PARAM_SEARCH = 'query=';
+// const PATH_BASE = 'https://hn.algolia.com/api/v1';
+// const PATH_SEARCH = '/search';
+// const PARAM_SEARCH = 'query=';
 
 
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
@@ -71,6 +71,7 @@ class App extends Component {
     const updatedList = result.hits.filter(item => item.objectID !== id);
     // this.setState({ result: Object.assign({}, this.state.result, {hits:updatedList}) }); //Object assign
     this.setState({ result: { ...result, hits: updatedList } }); //Spread Operator
+    //splice
   }
 
 
@@ -84,7 +85,7 @@ searchValue(event){
 
     const { result, searchTerm } = this.state;
 
-    if(!result) { return null; }
+    // if(!result) { return null; }
 
     console.log(this);
     return (
@@ -101,13 +102,23 @@ searchValue(event){
           </Row>
         </Grid>
 
+        { result &&
         <Table 
         list={ result.hits }
         searchTerm={ searchTerm }
         removeItem={ this.removeItem }
+        /> 
+        } 
 
-        />
-       
+        {/* {result ?
+          <Table
+            list={result.hits}
+            searchTerm={searchTerm}
+            removeItem={this.removeItem}
+          /> : null
+        }  */}
+        
+
       </div>
     );
   }
@@ -155,7 +166,7 @@ return (
           <h4>
             {item.author} | {item.num_comments} Comments | {item.points} Points
           <Button
-            className="btn btn-xs"
+            className="btn btn-danger btn-xs"
             type='button'
             onClick={() => removeItem(item.objectID)}>
             Remove me</Button>
