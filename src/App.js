@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Grid, Row, FormGroup } from 'react-bootstrap';
-import list from './list';
+// import list from './list';
 
 // default parameters to fetch data from the API
 
 const DEFAULT_QUERY = 'react';
-// const PATH_BASE = 'https://hn.algolia.com/api/v1';
-// const PATH_SEARCH = '/search';
-// const PARAM_SEARCH = 'query=';
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
 
 
 // const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
-const url = 'https://hn.algolia.com/api/v1/search?query=react';
+const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 console.log(url);
 
 //filter the results by search
@@ -41,6 +41,7 @@ class App extends Component {
     this.searchValue = this.searchValue.bind(this);
     this.fetchTopStories = this.fetchTopStories.bind(this);
     this.setTopStories = this.setTopStories.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   // set topstories
@@ -51,7 +52,7 @@ class App extends Component {
   // Fetch top stories
   fetchTopStories(searchTerm){
     //fetch() is a JS method to make http request. Before was XMLHttpRequest()
-    fetch('https://hn.algolia.com/api/v1/search?query=react')
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
     .then(response => response.json())
     .then(result => this.setTopStories(result))
     .catch(e => e); 
@@ -63,6 +64,12 @@ class App extends Component {
     this.fetchTopStories(this.state.searchTerm);
   }
 
+  // On search submit function
+
+  onSubmit(event){
+    this.fetchTopStories(this.state.searchTerm);
+    event.preventDefault();
+  }
 
   //Let's rewrite removeItem fucntion in ES6
   removeItem(id){
@@ -97,6 +104,7 @@ searchValue(event){
               <Search
                 onChange={this.searchValue}
                 value={searchTerm}
+                onSubmit={ this.onSubmit }
               >News App</Search>
             </div>
           </Row>
@@ -125,9 +133,9 @@ searchValue(event){
 }
 
 
-const Search = ({ onChange, value, children  }) => {
+const Search = ({ onChange, value, children, onSubmit  }) => {
   return (
-    <form>
+    <form onSubmit={ onSubmit }>
       <FormGroup>
         <h1 style={{ fontWeight: 'bold' }}>{children}</h1> 
         <hr style={{ border: '2px solid black', width:'100px'}} />
@@ -157,8 +165,9 @@ const Table = ( {list, searchTerm, removeItem} ) => {
 return (
   <div className="col-sm-10 col-sm-offset-1">
     {
-      list.filter(isSearched(searchTerm)).map(item =>
-        <div key={item.objectID}>
+      // list.filter(isSearched(searchTerm)).map(item =>
+      list.map(item =>
+      <div key={item.objectID}>
           <h1> 
             <a href={item.url}> {item.title} </a>
           </h1>
